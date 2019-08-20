@@ -1,6 +1,7 @@
 module Api
   module V1
     class ReviewsController < ApplicationController
+      before_action :authenticate_user!
       def index
         user_name = params[:user_name]
         @place = Place.find(params[:place_id])

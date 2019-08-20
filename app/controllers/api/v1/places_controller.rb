@@ -1,6 +1,7 @@
 module Api
   module V1
     class PlacesController < ApplicationController
+      before_action :authenticate_user!
       def index
         @places = Place.order('created_at DESC');
         # render json: {status: 'Success', message: 'Loaded place', data:@place}, status: :ok

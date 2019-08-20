@@ -1,4 +1,11 @@
 class ApplicationController < ActionController::API
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  # protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:display_name])
+  end
   include Response
   rescue_from ActiveRecord::RecordNotFound do |exception|
     json_response({ message: exception.message }, :not_found)
@@ -23,4 +30,5 @@ def validation_error(resource)
     ]
   }, status: :bad_request
 end
+
 end
